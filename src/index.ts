@@ -11,6 +11,14 @@ const app = new Elysia()
     const data = await response.json();
     return data;
   })
+  .get("/restaurants/:resId", async ({ params }) => {
+    const { resId } = params;
+    const resMenu = await fetch(
+      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.5529226&lng=73.879711&restaurantId=${resId}&catalog_qa=undefined`
+    );
+    const data = await resMenu.json();
+    return data;
+  })
   .listen(3000);
 
 console.log(
